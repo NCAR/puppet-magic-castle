@@ -1,1 +1,4 @@
 threshold: high
+fileignoreconfig:
+- filename: pupperware
+  checksum: d948fbfd0210e5056495b84eb7e80fe36eba6d9e924b54692835983d47b1a5cd

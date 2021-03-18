@@ -1,0 +1,3 @@
+[submodule "pupperware"]
+	path = pupperware
+	url = https://github.com/puppetlabs/pupperware.git
