@@ -21,7 +21,8 @@ repos:
       - id: puppet-lint
         args:
           - --fail-on-warnings
-      - id: puppet-validate
+      # - id: puppet-validate
+      #   additional_dependencies: ['puppet:>6']
       - id: r10k-validate
       - id: ruby-validate
   - repo: https://github.com/pre-commit/mirrors-prettier
