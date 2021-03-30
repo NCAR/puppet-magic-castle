@@ -22,10 +22,18 @@ Vagrant.configure('2') do |config|
   config.vm.define 'mgmt' do |mgmt|
     mgmt.vm.hostname = 'mgmt'
     # Use vagrant-auto_network to assign an IP address.
-    mgmt.vm.network :private_network, auto_network: true
+    mgmt.vm.network :private_network, ip: '10.20.1.2'
     # Use vagrant-hosts to add entries to /etc/hosts for each virtual machine
     # in this file.
-    mgmt.vm.provision :hosts, sync_hosts: true
+    mgmt.vm.provision :hosts do |provisioner|
+      provisioner.autoconfigure = true
+      provisioner.add_host '10.20.1.2', [
+        "puppet.mgmt.#{TOP_LEVEL_DOMAIN}",
+        'puppetserver',
+        'puppet'
+      ]
+      provisioner.sync_hosts = true
+    end
     mgmt.vm.provider 'virtualbox' do |vboxmgmt|
       vboxmgmt.cpus = 2
       vboxmgmt.memory = 2048
@@ -40,7 +48,15 @@ Vagrant.configure('2') do |config|
     login.vm.network :private_network, auto_network: true
     # Use vagrant-hosts to add entries to /etc/hosts for each virtual machine
     # in this file.
-    login.vm.provision :hosts, sync_hosts: true
+    login.vm.provision :hosts do |provisioner|
+      provisioner.autoconfigure = true
+      provisioner.add_host '10.20.1.2', [
+        "puppet.mgmt.#{TOP_LEVEL_DOMAIN}",
+        'puppetserver',
+        'puppet'
+      ]
+      provisioner.sync_hosts = true
+    end
     login.vm.provider 'virtualbox' do |vboxlogin|
       vboxlogin.cpus = 2
       vboxlogin.memory = 2048
@@ -56,7 +72,15 @@ Vagrant.configure('2') do |config|
       subconfig.vm.network :private_network, auto_network: true
       # Use vagrant-hosts to add entries to /etc/hosts for each virtual machine
       # in this file.
-      subconfig.vm.provision :hosts, sync_hosts: true
+      subconfig.vm.provision :hosts do |provisioner|
+        provisioner.autoconfigure = true
+        provisioner.add_host '10.20.1.2', [
+          "puppet.mgmt.#{TOP_LEVEL_DOMAIN}",
+          'puppetserver',
+          'puppet'
+        ]
+        provisioner.sync_hosts = true
+      end
       subconfig.vm.provision 'shell', path: 'bootstrap-agent.sh'
     end
   end

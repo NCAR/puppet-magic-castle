@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# set -eox
+set -eox
 
-# if which puppet > /dev/null 2>&1; then
-#   echo 'Puppet Installed'
-# else
+if which puppet > /dev/null 2>&1; then
+  echo 'Puppet Installed'
+else
     echo 'Installing Puppet Server'
     rpm -ivh https://yum.puppetlabs.com/puppet7-release-el-7.noarch.rpm
     yum -y install puppetserver
@@ -12,4 +12,4 @@
     puppet resource service puppetserver ensure=running enable=true
     # systemctl start puppetserver
     # systemctl enable puppetserver
-# fi
+fi
