@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -eox
-if which puppet > /dev/null 2>&1; then
+if command -v puppet > /dev/null 2>&1; then
   echo 'Puppet Installed'
 
 else
